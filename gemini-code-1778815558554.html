@@ -1,0 +1,1114 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LECA COMMUNITY — Official Store & Map</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Exo+2:ital,wght@0,300;0,400;0,600;0,700;0,800;1,700&family=Rajdhani:wght@500;600;700;800;900&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            /* TEMA LIGHT GRADIENT PURPLE & PINK (SUPER VIBRANT) */
+            --bg: #a855f7;
+            --bg2: #ec4899;
+            --bg3: #f472b6;
+            --surface: rgba(255, 255, 255, 0.85);
+            --surface2: rgba(255, 255, 255, 0.95);
+            --border: rgba(255, 255, 255, 0.8);
+            
+            /* Warna Akses & Teks */
+            --primary: #c084fc;
+            --primary-b: #a855f7;
+            --primary-g: #9333ea;
+            --accent: #ec4899;
+            --cyan: #06b6d4;
+            --gold: #f59e0b;
+            
+            /* NEON UNGU SPESIAL */
+            --neon-p: #d946ef;
+            --neon-p-glow: rgba(217, 70, 239, 0.6);
+            
+            /* Teks Gelap Untuk Background Glass Terang */
+            --text: #2e1065;
+            --text-m: #4c1d95;
+            --text-d: #6b21a8;
+            
+            /* Shadows & Transitions */
+            --shadow-glass: 0 15px 40px rgba(168, 85, 247, 0.25);
+            --smooth: cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        /* TEMA GELAP CYBERPUNK (TIDAK DIBUANG) */
+        body.dark-mode {
+            --bg: #1e0b35;
+            --bg2: #4a0b2e;
+            --bg3: #0f172a;
+            --surface: rgba(15, 5, 25, 0.85);
+            --surface2: rgba(25, 10, 40, 0.95);
+            --border: rgba(0, 243, 255, 0.4);
+            
+            /* Cyberpunk Colors */
+            --primary: #ff003c;
+            --primary-b: #00f3ff;
+            --primary-g: #fcee0a;
+            --accent: #ff007f;
+            
+            /* Neon Cyberpunk */
+            --neon-p: #00f3ff;
+            --neon-p-glow: rgba(0, 243, 255, 0.6);
+            
+            /* Teks Terang Untuk Background Gelap */
+            --text: #ffffff;
+            --text-m: #c4b5fd;
+            --text-d: #a78bfa;
+            
+            --shadow-glass: 0 10px 40px rgba(0, 243, 255, 0.15);
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+
+        html, body {
+            height: 100%; overflow: hidden;
+            background: linear-gradient(135deg, var(--bg) 0%, var(--bg2) 50%, var(--bg3) 100%);
+            color: var(--text);
+            font-family: 'Exo 2', sans-serif;
+            transition: background 0.5s var(--smooth), color 0.5s var(--smooth);
+        }
+
+        /* ============================================================
+           BOOT OVERLAY
+        ============================================================ */
+        #boot { position: fixed; inset: 0; z-index: 99999; background: #ffffff; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 24px; transition: opacity 0.8s ease, visibility 0.8s ease; }
+        #boot.done { opacity: 0; visibility: hidden; pointer-events: none; }
+        .boot-logo { font-family: 'Orbitron', sans-serif; font-size: 3.5rem; font-weight: 900; letter-spacing: -2px; background: linear-gradient(135deg, var(--neon-p), var(--accent), var(--primary-b)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; opacity: 0; animation: bootLogo 0.8s 0.3s forwards; filter: drop-shadow(0 4px 15px rgba(217,70,239,0.4)); }
+        @keyframes bootLogo { to { opacity: 1; transform: scale(1.05); } }
+        .boot-bar-wrap { width: 200px; height: 4px; background: rgba(168,85,247,0.15); border-radius: 10px; overflow: hidden; }
+        .boot-bar { height: 100%; background: linear-gradient(90deg, var(--primary-b), var(--neon-p)); box-shadow: 0 0 15px rgba(217,70,239,0.6); animation: bootBarFill 1.4s 0.4s cubic-bezier(0.4,0,0.2,1) forwards; width: 0; border-radius: 10px; }
+        @keyframes bootBarFill { to { width: 100%; } }
+        .boot-label { font-family: 'Rajdhani', sans-serif; font-weight: 700; font-size: 0.8rem; letter-spacing: 5px; text-transform: uppercase; color: var(--text-d); animation: bootLogo 0.8s 0.6s forwards; opacity: 0; }
+
+        /* ============================================================
+           AURORA BACKGROUND & PARTICLES
+        ============================================================ */
+        .aurora { position: fixed; inset: 0; z-index: 0; overflow: hidden; pointer-events: none; }
+        .blob { position: absolute; border-radius: 50%; filter: blur(90px); opacity: 0.4; transition: background 0.5s var(--smooth); }
+        .b1 { width: 75vw; height: 75vw; max-width: 550px; max-height: 550px; top: -10%; left: -10%; background: radial-gradient(ellipse, rgba(255, 255, 255, 0.4) 0%, transparent 70%); animation: drift1 22s ease-in-out infinite alternate; }
+        .b2 { width: 65vw; height: 65vw; max-width: 480px; max-height: 480px; bottom: -10%; right: -10%; background: radial-gradient(ellipse, rgba(217, 70, 239, 0.3) 0%, transparent 70%); animation: drift2 28s ease-in-out infinite alternate; }
+        .b3 { width: 50vw; height: 50vw; max-width: 380px; max-height: 380px; top: 40%; left: 30%; background: radial-gradient(ellipse, rgba(255, 255, 255, 0.6) 0%, transparent 70%); animation: drift3 19s ease-in-out infinite alternate; }
+        @keyframes drift1 { 0%{transform:translate(0,0) scale(1);} 100%{transform:translate(50px,70px) scale(1.1);} }
+        @keyframes drift2 { 0%{transform:translate(0,0) scale(1);} 100%{transform:translate(-60px,-50px) scale(1.15);} }
+        @keyframes drift3 { 0%{transform:translate(0,0);} 100%{transform:translate(40px,-50px) scale(0.9);} }
+        
+        .grid-bg { position: fixed; inset: 0; z-index: 0; pointer-events: none; background-image: linear-gradient(rgba(255,255,255,0.15) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.15) 1px, transparent 1px); background-size: 50px 50px; transition: all 0.5s var(--smooth); }
+        body.dark-mode .grid-bg { background-image: linear-gradient(rgba(0,243,255,0.1) 1px, transparent 1px), linear-gradient(90deg, rgba(0,243,255,0.1) 1px, transparent 1px); }
+        
+        #parts { position: fixed; inset: 0; z-index: 1; overflow: hidden; pointer-events: none; }
+        .pt { position: absolute; bottom: -60px; opacity: 0; animation: floatUp linear infinite; filter: drop-shadow(0 0 8px rgba(255,255,255,0.9)); transition: color 0.5s var(--smooth); }
+        @keyframes floatUp { 0%{transform:translateY(0) rotate(0deg) scale(0.8);opacity:0;} 10%{opacity:0.9;} 90%{opacity:0.7;} 100%{transform:translateY(-115vh) rotate(540deg) scale(1.2);opacity:0;} }
+
+        /* ============================================================
+           TOP BAR (POSISI SEJAJAR)
+        ============================================================ */
+        .top-bar {
+            position: fixed; top: 0; left: 0; right: 0; z-index: 10000;
+            padding: 16px 20px; display: flex; justify-content: space-between; align-items: center;
+            background: linear-gradient(180deg, var(--surface2), var(--surface));
+            backdrop-filter: blur(20px); border-bottom: 2px solid var(--border);
+            box-shadow: var(--shadow-glass);
+            transform: translateY(-100%); animation: slideDownTop 0.8s var(--smooth) 2.2s forwards;
+            transition: background 0.5s var(--smooth), border-color 0.5s var(--smooth);
+        }
+        @keyframes slideDownTop { to { transform: translateY(0); } }
+        
+        .top-brand { display: flex; align-items: center; gap: 10px; font-family: 'Orbitron', sans-serif; font-size: 1.15rem; font-weight: 900; color: var(--text); letter-spacing: 1.5px; text-shadow: 0 0 10px rgba(255,255,255,0.5); }
+        .top-brand i { color: var(--neon-p); font-size: 1.3rem; filter: drop-shadow(0 0 8px var(--neon-p-glow)); }
+        
+        .menu-btn {
+            background: var(--surface2); border: 2px solid var(--border); width: 44px; height: 44px;
+            border-radius: 14px; display: flex; align-items: center; justify-content: center;
+            font-size: 1.2rem; color: var(--neon-p); cursor: pointer; transition: all 0.3s var(--smooth);
+            box-shadow: 0 4px 15px var(--neon-p-glow);
+        }
+        .menu-btn:active { transform: scale(0.85); }
+
+        /* SIDE MENU DRAWER */
+        .side-overlay { position: fixed; inset: 0; z-index: 35000; background: rgba(0,0,0,0.5); backdrop-filter: blur(8px); opacity: 0; pointer-events: none; transition: opacity 0.4s var(--smooth); }
+        .side-overlay.open { opacity: 1; pointer-events: all; }
+        
+        .side-menu {
+            position: fixed; top: 0; right: 0; bottom: 0; width: 300px; max-width: 85vw;
+            z-index: 35001; background: var(--surface2); backdrop-filter: blur(30px); border-left: 2px solid var(--border);
+            box-shadow: -15px 0 50px rgba(0,0,0,0.3);
+            transform: translateX(100%); transition: transform 0.6s var(--smooth), background 0.5s var(--smooth);
+            display: flex; flex-direction: column; padding: 30px 24px;
+        }
+        .side-menu.open { transform: translateX(0); }
+        
+        .side-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px; }
+        .side-header h3 { font-size: 1.2rem; font-weight: 900; color: var(--text); }
+        .close-side { background: var(--surface); border: 1px solid var(--border); width: 38px; height: 38px; border-radius: 12px; font-size: 1.1rem; color: var(--text-d); cursor: pointer; transition: transform 0.2s; }
+        .close-side:active { transform: scale(0.85); }
+        
+        .user-profile { background: var(--surface); border: 2px solid var(--border); border-radius: 20px; padding: 18px; display: flex; align-items: center; gap: 14px; margin-bottom: 24px; box-shadow: var(--shadow-glass); transition: all 0.5s var(--smooth); }
+        .u-avatar { width: 50px; height: 50px; border-radius: 14px; background: linear-gradient(135deg, var(--primary-b), var(--neon-p)); display: flex; align-items: center; justify-content: center; color: white; font-size: 1.4rem; box-shadow: 0 4px 15px var(--neon-p-glow); }
+        .u-info h4 { font-size: 1rem; font-weight: 900; color: var(--text); margin-bottom: 4px; }
+        .u-badge { font-size: 0.65rem; background: rgba(245,158,11,0.1); color: var(--gold); padding: 3px 8px; border-radius: 6px; font-weight: 900; font-family: 'Rajdhani'; letter-spacing: 1px; border: 1px solid var(--gold); }
+
+        .menu-list { display: flex; flex-direction: column; gap: 12px; }
+        .menu-item { display: flex; align-items: center; gap: 14px; padding: 16px 18px; border-radius: 16px; background: var(--surface); border: 2px solid var(--border); font-weight: 800; color: var(--text); text-decoration: none; transition: all 0.3s var(--smooth); cursor: pointer; box-shadow: 0 4px 12px rgba(0,0,0,0.05); }
+        .menu-item:active { transform: scale(0.95); border-color: var(--neon-p); }
+        .menu-item i { font-size: 1.2rem; color: var(--primary-b); width: 24px; text-align: center; transition: color 0.3s; }
+        .menu-item:hover i { color: var(--neon-p); }
+
+        /* GRADIENT SPESIAL UNTUK TITLE MENU */
+        .title-gradient { border-color: var(--neon-p) !important; background: linear-gradient(135deg, rgba(255,255,255,0.9), rgba(255,255,255,0.7)); }
+        body.dark-mode .title-gradient { background: var(--surface); }
+        .title-gradient-text {
+            background: linear-gradient(135deg, var(--gold), var(--accent), var(--cyan));
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent; font-weight: 900 !important;
+            filter: drop-shadow(0 0 5px rgba(255,255,255,0.5));
+        }
+
+        /* ============================================================
+           HALAMAN LIST BELI TITLE (FITUR BARU)
+        ============================================================ */
+        .title-page { position: fixed; inset: 0; z-index: 15000; background: linear-gradient(180deg, var(--bg), var(--bg2)); overflow-y: auto; transform: translateX(100%); transition: transform 0.5s cubic-bezier(0.4,0,0.2,1), background 0.5s; padding-top: 70px; }
+        .title-page.open { transform: translateX(0); }
+        .title-topbar { background: var(--surface2); backdrop-filter: blur(24px); border-bottom: 2px solid var(--border); padding: 20px 24px; display: flex; align-items: center; gap: 16px; position: sticky; top: 0; z-index: 10; transition: background 0.5s; }
+        .title-body { padding: 24px 20px 120px; }
+        .title-header-card { background: var(--surface); border: 2px solid var(--border); border-radius: 24px; padding: 20px; margin-bottom: 24px; text-align: center; box-shadow: var(--shadow-glass); }
+        .title-header-card h3 { font-family: 'Orbitron', sans-serif; font-size: 1.4rem; font-weight: 900; color: var(--text); margin-bottom: 5px; }
+        .title-header-card p { font-size: 0.9rem; font-weight: 600; color: var(--text-m); }
+
+        /* ============================================================
+           RATING MODAL
+        ============================================================ */
+        .rating-overlay { position: fixed; inset: 0; z-index: 40000; background: rgba(0,0,0,0.7); backdrop-filter: blur(10px); opacity: 0; pointer-events: none; transition: opacity 0.4s var(--smooth); }
+        .rating-overlay.open { opacity: 1; pointer-events: all; }
+        .rating-modal { position: fixed; top: 50%; left: 50%; transform: translate(-50%, -45%) scale(0.95); z-index: 40001; width: 90%; max-width: 420px; background: var(--surface2); border: 2px solid var(--border); border-radius: 32px; box-shadow: var(--shadow-glass); opacity: 0; pointer-events: none; transition: all 0.4s var(--smooth); display: flex; flex-direction: column; overflow: hidden; backdrop-filter: blur(30px); }
+        .rating-modal.open { opacity: 1; pointer-events: all; transform: translate(-50%, -50%) scale(1); }
+        .rating-header { display: flex; justify-content: space-between; align-items: center; padding: 22px 24px; border-bottom: 2px solid var(--border); background: var(--surface); }
+        .rating-header h3 { font-size: 1.15rem; font-weight: 900; color: var(--text); display: flex; align-items: center; gap: 10px; }
+        .rating-header h3 i { color: var(--gold); filter: drop-shadow(0 0 5px rgba(245,158,11,0.5)); }
+        .rating-body { padding: 24px; display: flex; flex-direction: column; gap: 20px; }
+        .rating-total { display: flex; flex-direction: column; align-items: center; gap: 5px; background: var(--surface); padding: 20px; border-radius: 24px; border: 2px solid var(--border); }
+        .rating-total .score { font-size: 3rem; font-weight: 900; font-family: 'Orbitron', sans-serif; color: var(--text); line-height: 1; }
+        .rating-total .stars-display i { color: var(--gold); font-size: 1.2rem; }
+        .rating-total .count { font-size: 0.85rem; font-weight: 800; color: var(--text-m); font-family: 'Rajdhani', sans-serif; text-transform: uppercase; letter-spacing: 1.5px; margin-top: 6px; }
+        .rating-input { display: flex; flex-direction: column; align-items: center; gap: 12px; }
+        .rating-input p { font-size: 1rem; font-weight: 800; color: var(--text); }
+        .stars-select { display: flex; gap: 14px; font-size: 2.2rem; color: var(--border); cursor: pointer; }
+        .stars-select i.active, .stars-select i.hover { color: var(--gold); filter: drop-shadow(0 0 10px rgba(245,158,11,0.6)); transition: all 0.2s; transform: scale(1.1); }
+        .stars-select i:active { transform: scale(0.85); }
+        .rating-textarea { width: 100%; height: 110px; border-radius: 20px; padding: 18px; background: var(--surface); border: 2px solid var(--border); color: var(--text); font-family: inherit; font-size: 0.95rem; font-weight: 600; resize: none; outline: none; transition: all 0.3s; }
+        .rating-textarea::placeholder { color: var(--text-d); }
+        .rating-textarea:focus { border-color: var(--neon-p); box-shadow: 0 0 15px var(--neon-p-glow); }
+        .btn-submit-rating { width: 100%; padding: 18px; border-radius: 24px; border: none; background: linear-gradient(135deg, var(--neon-p), var(--primary-b)); color: white; font-weight: 900; font-size: 1.1rem; cursor: pointer; box-shadow: 0 8px 25px var(--neon-p-glow); transition: all 0.3s var(--smooth); font-family: 'Exo 2', sans-serif; letter-spacing: 1px; }
+        .btn-submit-rating:active { transform: scale(0.95); }
+
+        /* ============================================================
+           SLIDE NAV DOTS & CART FLOAT
+        ============================================================ */
+        .slide-nav { position: fixed; right: 14px; top: 50%; transform: translateY(-50%); z-index: 10000; display: flex; flex-direction: column; gap: 12px; }
+        .nav-dot { width: 10px; height: 10px; border-radius: 50%; background: var(--border); border: 2px solid transparent; cursor: pointer; transition: all 0.3s cubic-bezier(0.4,0,0.2,1); }
+        .nav-dot.active { background: linear-gradient(135deg, var(--neon-p), var(--accent)); box-shadow: 0 0 15px var(--neon-p-glow); width: 10px; height: 28px; border-radius: 10px; border-color: transparent; }
+
+        .cart-float { position: fixed; top: 85px; right: 20px; z-index: 10000; width: 56px; height: 56px; border-radius: 50%; background: var(--surface2); backdrop-filter: blur(20px); border: 2px solid var(--border); display: flex; align-items: center; justify-content: center; cursor: pointer; transition: all 0.3s cubic-bezier(0.4,0,0.2,1); box-shadow: var(--shadow-glass); }
+        .cart-float:active { transform: scale(0.9); }
+        .cart-float i { color: var(--neon-p); font-size: 1.3rem; }
+        .cart-badge { position: absolute; top: -2px; right: -2px; background: linear-gradient(135deg, var(--accent), var(--neon-p)); color: white; font-size: 0.7rem; font-weight: 900; min-width: 24px; height: 24px; border-radius: 50%; padding: 0 5px; display: none; align-items: center; justify-content: center; border: 2px solid #fff; box-shadow: 0 4px 10px var(--neon-p-glow); animation: badgePop 0.4s cubic-bezier(0.4,0,0.2,1); }
+        body.dark-mode .cart-badge { border-color: var(--bg); }
+        @keyframes badgePop { 0%{transform:scale(0);} 60%{transform:scale(1.3);} 100%{transform:scale(1);} }
+
+        /* ============================================================
+           SCROLLER & CARDS
+        ============================================================ */
+        .scroller { height: 100dvh; width: 100vw; overflow-y: scroll; scroll-snap-type: y mandatory; scroll-behavior: smooth; position: relative; z-index: 2; scrollbar-width: none; padding-top: 60px; }
+        .scroller::-webkit-scrollbar { display: none; }
+        .slide { min-height: 100dvh; width: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center; scroll-snap-align: start; padding: 28px 16px 86px; position: relative; overflow: hidden; }
+        .s-content { width: 100%; max-width: 480px; text-align: center; }
+        .glass-card { background: var(--surface); backdrop-filter: blur(30px); border: 2px solid var(--border); border-radius: 28px; box-shadow: var(--shadow-glass); transition: all 0.5s var(--smooth); }
+
+        /* CUSTOM SVG MIMIN ICON */
+        .neon-gem-icon { width: 38px; height: 38px; filter: drop-shadow(0 0 10px var(--neon-p-glow)); transition: transform 0.4s cubic-bezier(0.4,0,0.2,1); }
+        .price-list li:hover .neon-gem-icon { transform: scale(1.15) rotate(10deg); filter: drop-shadow(0 0 15px var(--neon-p-glow)); }
+        .neon-gem-sm { width: 24px; height: 24px; filter: drop-shadow(0 0 5px var(--neon-p-glow)); }
+        .neon-gem-md { width: 30px; height: 30px; filter: drop-shadow(0 0 8px var(--neon-p-glow)); }
+
+        /* TITLE ICON (PALETTE) */
+        .title-icon { font-size: 1.8rem; color: var(--neon-p); filter: drop-shadow(0 0 8px var(--neon-p-glow)); }
+
+        /* ============================================================
+           SLIDE 1 — HERO
+        ============================================================ */
+        .hero-badge { display: inline-flex; align-items: center; gap: 8px; background: var(--surface2); border: 2px solid var(--border); color: var(--neon-p); font-weight: 800; font-size: 0.75rem; letter-spacing: 3px; text-transform: uppercase; padding: 10px 24px; border-radius: 100px; margin-bottom: 28px; font-family: 'Rajdhani', sans-serif; box-shadow: 0 8px 20px var(--neon-p-glow); transition: all 0.5s var(--smooth); backdrop-filter: blur(10px); }
+        .hero-orbit-wrap { position: relative; display: inline-block; margin-bottom: 10px; }
+        .orbit-ring { position: absolute; border-radius: 50%; pointer-events: none; border: 1.5px dashed; opacity: 0.6; transition: border-color 0.5s var(--smooth); border-color: rgba(255,255,255,0.8); }
+        .or1 { width: 280px; height: 280px; top: 50%; left: 50%; transform: translate(-50%,-50%); animation: orbitSpin1 15s linear infinite; }
+        .or2 { width: 340px; height: 220px; top: 50%; left: 50%; transform: translate(-50%,-50%) rotateX(60deg); animation: orbitSpin2 20s linear infinite reverse; }
+        body.dark-mode .orbit-ring { border-color: var(--primary-b); opacity: 0.4; }
+        @keyframes orbitSpin1 { to { transform: translate(-50%,-50%) rotate(360deg); } }
+        @keyframes orbitSpin2 { to { transform: translate(-50%,-50%) rotateX(60deg) rotate(360deg); } }
+
+        .leca-outer { position: relative; display: inline-block; padding: 0 10px; }
+        .leca-text {
+            font-family: 'Orbitron', sans-serif; font-size: clamp(4.5rem, 22vw, 7.5rem); font-weight: 900; line-height: 1; letter-spacing: -2px;
+            background: linear-gradient(135deg, #ffffff 0%, var(--surface2) 50%, #fdf4ff 100%); background-size: 200% 200%; -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+            animation: lgGrad 5s ease infinite; filter: drop-shadow(0 15px 30px rgba(255,255,255,0.4)); display: block; position: relative; z-index: 2;
+        }
+        body.dark-mode .leca-text { background: linear-gradient(135deg, var(--primary-b) 0%, var(--neon-p) 50%, var(--accent) 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; filter: drop-shadow(0 15px 30px var(--neon-p-glow)); }
+        @keyframes lgGrad { 0%,100%{background-position:0% 50%;} 50%{background-position:100% 50%;} }
+
+        .community-tag { font-family: 'Rajdhani', sans-serif; font-size: 0.9rem; font-weight: 800; letter-spacing: 12px; color: var(--text-d); text-transform: uppercase; margin-top: 15px; display: block; text-shadow: 0 0 5px rgba(255,255,255,0.5); }
+        .hero-line { width: 80%; height: 3px; margin: 30px auto; background: linear-gradient(90deg, transparent, #ffffff, transparent); border-radius: 50px; position: relative; opacity: 0.8; box-shadow: 0 0 10px rgba(255,255,255,0.5); }
+        body.dark-mode .hero-line { background: linear-gradient(90deg, transparent, var(--neon-p), transparent); box-shadow: 0 0 10px var(--neon-p-glow); }
+
+        .ticker-wrap { overflow: hidden; width: 100%; margin: 0 -16px 24px; mask-image: linear-gradient(to right, transparent 0%, black 15%, black 85%, transparent 100%); }
+        .ticker { display: flex; gap: 40px; white-space: nowrap; animation: tickerScroll 20s linear infinite; }
+        @keyframes tickerScroll { to { transform: translateX(-50%); } }
+        .ticker-item { display: inline-flex; align-items: center; gap: 8px; font-family: 'Rajdhani', sans-serif; font-size: 0.8rem; font-weight: 900; letter-spacing: 2px; text-transform: uppercase; color: var(--text); }
+        .ticker-item i { color: var(--neon-p); }
+        .ticker-sep { color: var(--border); }
+
+        .hero-desc { font-size: 0.95rem; color: var(--text); line-height: 1.8; padding: 24px 26px; font-weight: 700; }
+        .hero-desc strong { color: var(--text); font-weight: 900; }
+        .hero-desc em { color: var(--neon-p); font-style: normal; font-weight: 900; }
+
+        .scroll-hint { position: absolute; bottom: 26px; display: flex; flex-direction: column; align-items: center; gap: 8px; }
+        .scroll-hint span { font-family: 'Rajdhani', sans-serif; font-size: 0.65rem; letter-spacing: 4px; text-transform: uppercase; color: var(--text-d); font-weight: 800; }
+        .chev-group { display: flex; flex-direction: column; align-items: center; }
+        .chev-group i { color: var(--neon-p); font-size: 0.8rem; animation: chev 2s ease-in-out infinite; line-height: 1.2; }
+        .chev-group i:nth-child(2) { animation-delay:.15s; opacity:.6; }
+        .chev-group i:nth-child(3) { animation-delay:.3s; opacity:.3; }
+        @keyframes chev { 0%,100%{transform:translateY(0);} 50%{transform:translateY(8px);} }
+
+        .sec-label { display: flex; align-items: center; gap: 12px; font-family: 'Rajdhani', sans-serif; font-size: 0.85rem; text-transform: uppercase; letter-spacing: 3px; font-weight: 900; color: var(--text); margin: 24px 0 16px; transition: color 0.5s; text-shadow: 0 0 5px rgba(255,255,255,0.3); }
+        .sec-label::before, .sec-label::after { content: ''; flex: 1; height: 3px; background: linear-gradient(90deg, transparent, var(--border), transparent); border-radius: 5px; }
+
+        /* ============================================================
+           SLIDE 2 — MARKETPLACE & OUTLINE NEON
+        ============================================================ */
+        .market-header { margin-bottom: 24px; }
+        .market-header-inner { background: var(--surface2); border: 2px solid var(--border); border-radius: 28px; padding: 20px 22px; display: flex; align-items: center; gap: 18px; box-shadow: var(--shadow-glass); transition: all 0.5s; backdrop-filter: blur(20px); }
+        .mkt-icon { width: 56px; height: 56px; border-radius: 20px; flex-shrink: 0; background: linear-gradient(135deg, var(--neon-p), var(--primary-b)); display: flex; align-items: center; justify-content: center; box-shadow: 0 8px 24px var(--neon-p-glow); }
+        .mkt-icon i { color: white; font-size: 1.4rem; }
+        .mkt-text { text-align: left; }
+        .mkt-text h3 { font-size: 1.1rem; font-weight: 900; color: var(--text); margin-bottom: 4px; }
+        .mkt-text p { font-size: 0.85rem; color: var(--text-m); font-weight: 700; }
+
+        .price-list { list-style: none; }
+        .price-list li { margin-bottom: 14px; border-radius: 24px; position: relative; overflow: visible; cursor: pointer; transition: all 0.3s var(--smooth); box-shadow: 0 4px 15px rgba(0,0,0,0.05); }
+        .card-inner { display: flex; justify-content: space-between; align-items: center; padding: 0 18px 0 0; background: var(--surface); backdrop-filter: blur(30px); border: 2px solid var(--border); border-radius: 24px; transition: all 0.3s var(--smooth); overflow: hidden; position: relative; z-index: 2; }
+
+        .rarity-stripe { width: 6px; height: 100%; flex-shrink: 0; min-height: 80px; }
+        .rarity-common .rarity-stripe { background: linear-gradient(180deg, #9ca3af, #d1d5db); }
+        .rarity-rare .rarity-stripe { background: linear-gradient(180deg, #3b82f6, #93c5fd); }
+        .rarity-epic .rarity-stripe { background: linear-gradient(180deg, var(--primary-b), var(--neon-p)); }
+        .rarity-legendary .rarity-stripe { background: linear-gradient(180deg, var(--gold), #fde047); }
+
+        .card-body { display: flex; justify-content: space-between; align-items: center; flex: 1; padding: 16px 0 16px 16px; }
+        .rbx-left { display: flex; align-items: center; gap: 14px; }
+        .rbx-icon-wrap { width: 46px; height: 46px; border-radius: 16px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; background: var(--surface2); box-shadow: inset 0 2px 5px rgba(0,0,0,0.05), 0 4px 10px rgba(0,0,0,0.05); border: 1px solid var(--border); }
+
+        .rbx-amt { font-size: 1.1rem; font-weight: 900; color: var(--text); display: block; margin-bottom: 4px; }
+        .rarity-badge { display: inline-flex; align-items: center; gap: 4px; font-family: 'Rajdhani', sans-serif; font-size: 0.65rem; font-weight: 900; letter-spacing: 2px; text-transform: uppercase; padding: 3px 8px; border-radius: 8px; border: 1px solid var(--border); }
+        .rarity-common .rarity-badge { background: rgba(107,114,128,0.1); color: #6b7280; }
+        .rarity-rare .rarity-badge { background: rgba(59,130,246,0.1); color: #3b82f6; }
+        .rarity-epic .rarity-badge { background: rgba(217,70,239,0.1); color: var(--neon-p); animation: rarityPulse 2.5s ease-in-out infinite; }
+        .rarity-legendary .rarity-badge { background: rgba(245,158,11,0.1); color: var(--gold); }
+        @keyframes rarityPulse { 0%,100%{box-shadow:none;} 50%{box-shadow:0 0 15px var(--neon-p-glow);} }
+
+        .item-price { font-family: 'Orbitron', sans-serif; font-size: 0.95rem; font-weight: 900; color: var(--text); }
+        .rarity-epic .item-price { color: var(--neon-p); }
+        .rarity-legendary .item-price { color: var(--gold); }
+
+        /* OUTLINE NEON UNGU BERDENYUT PADA PRODUK */
+        @keyframes neonOutlinePulse {
+            0% { box-shadow: 0 0 0 3px var(--neon-p), 0 0 15px var(--neon-p-glow); }
+            50% { box-shadow: 0 0 0 4px var(--primary-b), 0 0 30px var(--neon-p-glow), 0 0 45px rgba(217,70,239,0.3); }
+            100% { box-shadow: 0 0 0 3px var(--neon-p), 0 0 15px var(--neon-p-glow); }
+        }
+        .price-list li.selected .card-inner {
+            background: var(--surface2); border-color: transparent;
+            animation: neonOutlinePulse 1.5s ease-in-out infinite; 
+        }
+        .price-list li.selected { transform: scale(1.03); z-index: 10; }
+        .price-list li:active { transform: scale(0.98); }
+
+        .badge-hot { position: absolute; top: 0; right: 20px; z-index: 10; background: linear-gradient(90deg, var(--neon-p), #ff1460); color: white; font-size: 0.65rem; font-weight: 900; padding: 4px 14px; border-radius: 0 0 12px 12px; letter-spacing: 1.5px; text-transform: uppercase; box-shadow: 0 4px 15px var(--neon-p-glow); font-family: 'Rajdhani', sans-serif; }
+
+        .note-card { border-radius: 20px; padding: 18px; margin-top: 16px; display: flex; flex-direction: column; gap: 12px; background: var(--surface); border: 2px solid var(--border); box-shadow: var(--shadow-glass); transition: all 0.5s; }
+        .note-row { display: flex; align-items: flex-start; gap: 12px; font-size: 0.85rem; line-height: 1.6; font-weight: 700; color: var(--text-m); }
+        .note-row strong { color: var(--text); font-weight: 900; }
+        .note-row em { font-style: normal; color: var(--neon-p); font-weight: 900; }
+        .ni { font-size: 1rem; margin-top: 2px; flex-shrink: 0; }
+        .ni.red { color: #ef4444; } .ni.green { color: #10b981; } .ni.amber { color: var(--gold); }
+        .note-div { height: 1.5px; background: var(--border); margin: 4px 0; border-radius: 2px; }
+
+        .btn { display: flex; align-items: center; justify-content: center; padding: 16px 26px; margin: 16px 0; border-radius: 100px; text-decoration: none; font-weight: 900; color: white; gap: 12px; font-size: 0.95rem; transition: all 0.3s ease; position: relative; overflow: hidden; letter-spacing: 1px; font-family: 'Exo 2', sans-serif; border: none; }
+        .btn::before { content: ''; position: absolute; top: 0; left: -100%; width: 50%; height: 100%; background: linear-gradient(to right, transparent, rgba(255,255,255,0.4), transparent); transform: skewX(-20deg); animation: btnShine 3s infinite; }
+        @keyframes btnShine { 0%{left:-100%;} 20%{left:200%;} 100%{left:200%;} }
+        .btn:active { transform: scale(0.95); }
+        .btn-roblox { background: linear-gradient(135deg, var(--primary-b), var(--neon-p)); box-shadow: 0 8px 25px var(--neon-p-glow); }
+        .btn-play { background: linear-gradient(135deg, var(--cyan), #3b82f6); box-shadow: 0 8px 25px rgba(6,182,212,0.4); display: inline-flex; padding: 18px 45px; font-size: 1.05rem; margin: 0 auto; }
+
+        /* ============================================================
+           SLIDE 3 — MAP
+        ============================================================ */
+        .map-card { padding: 32px 26px 30px; margin-top: 10px; border-radius: 32px; background: var(--surface); border: 2px solid var(--border); position: relative; overflow: hidden; backdrop-filter: blur(30px); box-shadow: var(--shadow-glass); transition: all 0.5s; }
+        .map-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 4px; background: linear-gradient(90deg, var(--cyan), var(--primary-b), var(--neon-p)); }
+        .map-mountain { position: absolute; bottom: 0; left: 0; right: 0; height: 200px; pointer-events: none; opacity: 0.4; z-index: 0; }
+        .map-tag { display: inline-flex; align-items: center; gap: 8px; background: var(--surface2); border: 1px solid rgba(6,182,212,0.5); color: var(--cyan); font-size: 0.7rem; font-weight: 900; padding: 6px 16px; border-radius: 100px; font-family: 'Rajdhani', sans-serif; letter-spacing: 3px; text-transform: uppercase; margin-bottom: 16px; position: relative; z-index: 1; box-shadow: 0 4px 10px rgba(6,182,212,0.15); }
+        .lunexia-title { font-family: 'Orbitron', sans-serif; font-size: 2.2rem; font-weight: 900; color: var(--text); letter-spacing: 2px; margin-bottom: 16px; line-height: 1.1; position: relative; z-index: 1; filter: drop-shadow(0 4px 10px rgba(255,255,255,0.4)); }
+        .map-desc { font-size: 0.9rem; line-height: 1.8; color: var(--text-m); margin-bottom: 26px; font-weight: 700; position: relative; z-index: 1; }
+        .map-stats { display: flex; gap: 12px; margin-bottom: 30px; position: relative; z-index: 1; }
+        .map-stat { flex: 1; background: var(--surface2); border: 2px solid var(--border); border-radius: 20px; padding: 16px 10px; display: flex; flex-direction: column; align-items: center; gap: 8px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); transition: all 0.5s; }
+        .map-stat i { color: var(--cyan); font-size: 1.2rem; }
+        .map-stat-v { font-size: 0.85rem; font-weight: 900; color: var(--text); }
+        .map-stat-l { font-family: 'Rajdhani', sans-serif; font-size: 0.65rem; color: var(--text-d); font-weight: 800; letter-spacing: 1.5px; text-transform: uppercase; }
+
+        /* ============================================================
+           SLIDE 4 — CONTACT
+        ============================================================ */
+        .contact-intro { background: var(--surface2); border: 2px solid var(--border); border-radius: 24px; padding: 22px; margin-bottom: 20px; text-align: left; position: relative; overflow: hidden; box-shadow: var(--shadow-glass); transition: all 0.5s; }
+        .contact-intro::before { content: ''; position: absolute; top: 0; left: 0; bottom: 0; width: 4px; background: linear-gradient(180deg, var(--primary-b), var(--neon-p)); }
+        .contact-intro-title { font-size: 1.05rem; font-weight: 900; color: var(--text); margin-bottom: 8px; display: flex; align-items: center; gap: 10px; }
+        .contact-intro-title i { color: var(--neon-p); }
+        .contact-intro-sub { font-size: 0.88rem; color: var(--text-m); font-weight: 700; line-height: 1.6; }
+        
+        .contact-tile { background: var(--surface2); border: 2px solid var(--border); border-radius: 24px; margin-bottom: 14px; overflow: hidden; transition: all 0.25s; position: relative; box-shadow: var(--shadow-glass); backdrop-filter: blur(20px); }
+        .contact-tile:active { transform: scale(0.96); }
+        .contact-tile-inner { display: flex; align-items: center; padding: 20px 22px; gap: 18px; text-decoration: none; }
+        .c-icon { width: 58px; height: 58px; border-radius: 20px; display: flex; align-items: center; justify-content: center; font-size: 1.6rem; color: white; flex-shrink: 0; }
+        .c-wa { background: linear-gradient(135deg, #25d366, #128c7e); box-shadow: 0 6px 20px rgba(37,211,102,0.4); }
+        .c-dc { background: linear-gradient(135deg, #5865f2, #3a47d5); box-shadow: 0 6px 20px rgba(88,101,242,0.4); }
+        .tile-text { flex: 1; text-align: left; }
+        .tile-name { font-size: 1.05rem; font-weight: 900; color: var(--text); margin-bottom: 4px; }
+        .tile-sub { font-size: 0.82rem; color: var(--text-d); font-weight: 700; }
+        .tile-arr { color: var(--primary-b); font-size: 1rem; }
+        
+        .dc-id-box { display: flex; align-items: center; gap: 16px; background: var(--surface2); border: 2px solid var(--border); border-radius: 24px; padding: 18px 22px; margin-top: 10px; box-shadow: var(--shadow-glass); transition: all 0.5s; }
+        .dc-id-box i { color: #5865f2; font-size: 1.6rem; flex-shrink: 0; }
+        .dc-id-l { font-family: 'Rajdhani', sans-serif; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 2px; font-weight: 900; color: var(--text-d); margin-bottom: 4px; }
+        .dc-id-v { font-size: 1.1rem; font-weight: 900; color: var(--text); }
+
+        /* ============================================================
+           ACTION BAR (Z-INDEX 26000 BIAR MUNCUL DI ATAS PAGE TITLE)
+        ============================================================ */
+        .action-bar {
+            position: fixed; bottom: 0; left: 0; right: 0; z-index: 26000; background: var(--surface2); backdrop-filter: blur(30px); border-top: 2px solid var(--border); padding: 16px 20px 32px;
+            transform: translateY(100%); transition: transform 0.4s cubic-bezier(0.4,0,0.2,1), background 0.5s; box-shadow: 0 -10px 40px rgba(0,0,0,0.2); border-radius: 32px 32px 0 0;
+        }
+        .action-bar.show { transform: translateY(0); }
+        .action-product-row { display: flex; align-items: center; gap: 14px; background: var(--surface); border: 2px solid var(--border); border-radius: 20px; padding: 14px 18px; margin-bottom: 16px; box-shadow: inset 0 2px 10px rgba(0,0,0,0.05); }
+        .action-product-row .prod-name { font-size: 1rem; font-weight: 900; color: var(--text); flex: 1; }
+        .action-product-row .prod-price { font-family: 'Orbitron', sans-serif; font-size: 0.95rem; font-weight: 900; color: var(--neon-p); }
+        .action-btns { display: flex; gap: 12px; }
+        .btn-add-cart { flex: 1; padding: 16px; border-radius: 20px; border: 2px solid var(--neon-p); background: var(--surface); color: var(--neon-p); font-weight: 900; font-size: 0.95rem; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px; transition: all 0.2s; font-family: 'Exo 2', sans-serif; box-shadow: 0 4px 15px var(--neon-p-glow); }
+        .btn-add-cart:active { transform: scale(0.96); }
+        .btn-buy-now { flex: 1.2; padding: 16px; border-radius: 20px; border: none; background: linear-gradient(135deg, var(--primary-b), var(--neon-p)); color: white; font-weight: 900; font-size: 0.95rem; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px; box-shadow: 0 8px 25px var(--neon-p-glow); transition: all 0.2s; font-family: 'Exo 2', sans-serif; }
+        .btn-buy-now:active { transform: scale(0.96); }
+
+        /* ============================================================
+           CART DRAWER (Z-INDEX 20000)
+        ============================================================ */
+        .cart-overlay { position: fixed; inset: 0; z-index: 20000; background: rgba(0,0,0, 0.6); backdrop-filter: blur(8px); opacity: 0; pointer-events: none; transition: opacity 0.3s; }
+        .cart-overlay.open { opacity: 1; pointer-events: all; }
+        .cart-drawer { position: fixed; bottom: 0; left: 0; right: 0; z-index: 20001; background: var(--bg); border-radius: 36px 36px 0 0; border: 2px solid var(--border); border-bottom: none; max-height: 85dvh; overflow: hidden; transform: translateY(100%); transition: transform 0.5s cubic-bezier(0.4,0,0.2,1), background 0.5s; display: flex; flex-direction: column; box-shadow: 0 -20px 60px rgba(0,0,0,0.5); }
+        .cart-drawer.open { transform: translateY(0); }
+        .cart-header { padding: 24px 24px 20px; border-bottom: 2px solid var(--border); display: flex; align-items: center; justify-content: space-between; background: var(--surface2); position: relative; }
+        .cart-header::after { content: ''; position: absolute; top: 12px; left: 35%; right: 35%; height: 5px; background: var(--border); border-radius: 10px; }
+        .cart-header h3 { margin: 0; color: var(--text); font-size: 1.1rem; font-weight: 900; display: flex; align-items: center; gap: 12px; }
+        .cart-header h3 i { color: var(--neon-p); }
+        .cart-close { background: var(--surface); border: 2px solid var(--border); color: var(--text-d); width: 40px; height: 40px; border-radius: 14px; cursor: pointer; font-size: 1.2rem; display: flex; align-items: center; justify-content: center; transition: all 0.2s; }
+        .cart-close:active { transform: scale(0.9); }
+        .cart-items { overflow-y: auto; flex: 1; padding: 16px 20px; }
+        .cart-empty { text-align: center; padding: 60px 20px; color: var(--text-m); }
+        .cart-empty i { font-size: 4rem; color: var(--border); margin-bottom: 16px; display: block; }
+        .cart-empty p { font-size: 1rem; font-weight: 800; line-height: 1.6; }
+        .cart-item { background: var(--surface2); border: 2px solid var(--border); border-radius: 20px; margin-bottom: 12px; padding: 16px; display: flex; align-items: center; gap: 14px; animation: slideDown 0.3s ease; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
+        @keyframes slideDown { from{opacity:0;transform:translateY(-10px);} to{opacity:1;transform:translateY(0);} }
+        .cart-item-check { width: 26px; height: 26px; border-radius: 8px; border: 2px solid var(--neon-p); cursor: pointer; display: flex; align-items: center; justify-content: center; transition: all 0.2s; flex-shrink: 0; background: var(--surface); }
+        .cart-item-check.checked { background: var(--neon-p); border-color: var(--neon-p); box-shadow: 0 0 15px var(--neon-p-glow); }
+        .cart-item-check.checked::after { content: '✓'; color: white; font-size: 0.85rem; font-weight: 900; }
+        .cart-item-info { flex: 1; }
+        .cart-item-name { font-size: 0.95rem; font-weight: 900; color: var(--text); margin-bottom: 4px; }
+        .cart-item-price { font-family: 'Orbitron', sans-serif; font-size: 0.85rem; font-weight: 900; color: var(--neon-p); }
+        .cart-item-qty { display: flex; align-items: center; gap: 10px; }
+        .qty-btn { width: 32px; height: 32px; border-radius: 10px; border: none; background: var(--surface); color: var(--neon-p); font-size: 1.2rem; display: flex; align-items: center; justify-content: center; cursor: pointer; font-weight: 900; transition: all 0.15s; border: 1px solid var(--border); }
+        .qty-btn:active { transform: scale(0.85); }
+        .qty-num { font-size: 1rem; font-weight: 900; color: var(--text); min-width: 24px; text-align: center; }
+        .cart-footer { background: var(--surface2); padding: 20px 24px 32px; border-top: 2px solid var(--border); transition: background 0.5s; }
+        .cart-summary { display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; padding: 16px 20px; background: var(--surface); border: 2px solid var(--border); border-radius: 20px; }
+        .cart-summary-label { font-size: 0.95rem; font-weight: 900; color: var(--text-m); }
+        .cart-summary-total { font-family: 'Orbitron', sans-serif; font-size: 1.1rem; font-weight: 900; color: var(--neon-p); }
+        .btn-checkout { width: 100%; padding: 18px; border-radius: 20px; border: none; background: linear-gradient(135deg, var(--primary-b), var(--neon-p)); color: white; font-weight: 900; font-size: 1.05rem; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 12px; box-shadow: 0 8px 30px var(--neon-p-glow); transition: all 0.2s; font-family: 'Exo 2', sans-serif; letter-spacing: 0.5px; }
+        .btn-checkout:active { transform: scale(0.97); }
+        .btn-checkout:disabled { background: var(--border); box-shadow: none; cursor: not-allowed; color: var(--text-d); }
+
+        /* ============================================================
+           CONTACT / ORDER PAGE (CHECKOUT LENGKAP UTUH) - Z-INDEX 30000
+        ============================================================ */
+        .contact-page { position: fixed; inset: 0; z-index: 30000; background: var(--bg); overflow-y: auto; transform: translateX(100%); transition: transform 0.5s cubic-bezier(0.4,0,0.2,1), background 0.5s; }
+        .contact-page.open { transform: translateX(0); }
+        .contact-topbar { background: var(--surface2); backdrop-filter: blur(24px); border-bottom: 2px solid var(--border); padding: 20px 24px; display: flex; align-items: center; gap: 16px; position: sticky; top: 0; z-index: 10; transition: background 0.5s; }
+        .back-btn { background: var(--surface); border: 2px solid var(--border); color: var(--text); width: 44px; height: 44px; border-radius: 14px; display: flex; align-items: center; justify-content: center; cursor: pointer; font-size: 1.2rem; transition: all 0.2s; flex-shrink: 0; }
+        .back-btn:active { transform: scale(0.88); }
+        .contact-topbar h2 { margin: 0; color: var(--text); font-size: 1.15rem; font-weight: 900; }
+        .contact-body { padding: 24px 20px 60px; }
+        .order-card { background: var(--surface2); border: 2px solid var(--border); border-radius: 24px; padding: 22px 20px; margin-bottom: 18px; box-shadow: var(--shadow-glass); }
+        .order-card h4 { font-family: 'Rajdhani', sans-serif; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 2px; font-weight: 900; color: var(--text-d); margin: 0 0 16px; }
+        .order-item-row { display: flex; justify-content: space-between; align-items: center; padding: 12px 0; border-bottom: 2px solid var(--border); }
+        .order-item-row:last-child { border-bottom: none; }
+        .order-item-left { display: flex; align-items: center; gap: 12px; }
+        .order-item-name { font-size: 0.95rem; font-weight: 900; color: var(--text); }
+        .order-qty-badge { font-size: 0.75rem; background: var(--surface); border: 1px solid var(--border); color: var(--neon-p); padding: 4px 10px; border-radius: 10px; font-weight: 900; }
+        .order-item-price { font-family: 'Orbitron', sans-serif; font-size: 0.9rem; font-weight: 900; color: var(--neon-p); }
+        .order-total-row { display: flex; justify-content: space-between; align-items: center; margin-top: 16px; padding-top: 16px; border-top: 2px dashed var(--border); }
+        .order-total-label { font-size: 1rem; font-weight: 900; color: var(--text); }
+        .order-total-price { font-family: 'Orbitron', sans-serif; font-size: 1.2rem; font-weight: 900; color: var(--neon-p); }
+        .info-banner { background: var(--surface2); border: 2px solid var(--border); border-radius: 20px; padding: 18px; margin-bottom: 20px; display: flex; gap: 14px; box-shadow: var(--shadow-glass); }
+        .info-banner i { color: var(--primary-b); font-size: 1.2rem; flex-shrink: 0; }
+        .info-banner p { margin: 0; font-size: 0.9rem; font-weight: 700; color: var(--text-m); line-height: 1.6; }
+        .sec-sm { font-family: 'Rajdhani', sans-serif; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 3px; font-weight: 900; color: var(--text-d); margin: 24px 0 14px; }
+        
+        .discord-steps { padding: 0 16px 16px; border-top: 2px solid var(--border); }
+        .ds-lbl { font-family: 'Rajdhani', sans-serif; font-size: 0.75rem; letter-spacing: 1.5px; text-transform: uppercase; color: var(--text-d); font-weight: 900; margin: 16px 0 12px; }
+        .ds-list { display: flex; flex-direction: column; gap: 10px; }
+        .ds-step { display: flex; align-items: flex-start; gap: 12px; background: var(--surface); border: 2px solid var(--border); border-radius: 12px; padding: 14px; transition: all 0.5s; }
+        .step-num { width: 28px; height: 28px; border-radius: 8px; flex-shrink: 0; background: linear-gradient(135deg, #5865f2, #3a47d5); color: white; font-size: 0.8rem; font-weight: 900; display: flex; align-items: center; justify-content: center; }
+        .step-info { flex: 1; }
+        .step-title { font-size: 0.9rem; font-weight: 900; color: var(--text); display: flex; align-items: center; gap: 8px; margin-bottom: 4px; }
+        .step-title i { font-size: 0.8rem; color: #818cf8; }
+        .step-desc { font-size: 0.8rem; font-weight: 700; color: var(--text-m); line-height: 1.45; }
+        .step-desc strong { color: #818cf8; font-weight: 900; }
+
+        /* ============================================================
+           REVEAL ANIMATIONS
+        ============================================================ */
+        .ri { opacity: 0; visibility: hidden; }
+        .fu.vis { visibility: visible; animation: fadeUp 0.65s cubic-bezier(0.25,0.8,0.25,1) forwards; }
+        .sl.vis { visibility: visible; animation: slideL 0.55s cubic-bezier(0.25,0.8,0.25,1) forwards; }
+        .sr.vis { visibility: visible; animation: slideR 0.55s cubic-bezier(0.25,0.8,0.25,1) forwards; }
+        @keyframes fadeUp { from{opacity:0;transform:translateY(30px);} to{opacity:1;transform:translateY(0);} }
+        @keyframes slideL { from{opacity:0;transform:translateX(-30px);} to{opacity:1;transform:translateX(0);} }
+        @keyframes slideR { from{opacity:0;transform:translateX(30px);} to{opacity:1;transform:translateX(0);} }
+
+        /* ============================================================
+           TOAST
+        ============================================================ */
+        .toast {
+            position: fixed; bottom: 120px; left: 50%; transform: translateX(-50%) translateY(20px);
+            background: var(--surface2); border: 2px solid var(--neon-p); color: var(--text); padding: 14px 26px; border-radius: 20px;
+            font-size: 0.95rem; font-weight: 900; z-index: 50000; opacity: 0; transition: all 0.4s cubic-bezier(0.4,0,0.2,1); pointer-events: none;
+            white-space: nowrap; box-shadow: 0 10px 30px var(--neon-p-glow); backdrop-filter: blur(10px);
+        }
+        .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+    </style>
+</head>
+<body>
+
+    <!-- DEFINISI CUSTOM SVG MIMIN UNTUK ICON NEON GEM & LAINNYA -->
+    <svg style="display: none;">
+        <defs>
+            <linearGradient id="neon-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stop-color="var(--neon-p)"/>
+                <stop offset="50%" stop-color="var(--primary-b)"/>
+                <stop offset="100%" stop-color="var(--primary)"/>
+            </linearGradient>
+            <g id="neon-gem">
+                <path d="M50 5 L90 25 L90 75 L50 95 L10 75 L10 25 Z" fill="url(#neon-grad)"/>
+                <path d="M50 15 L80 30 L80 70 L50 85 L20 70 L20 30 Z" fill="#ffffff" opacity="0.4"/>
+                <polygon points="50,25 70,40 50,75 30,40" fill="#ffffff" opacity="0.9"/>
+            </g>
+        </defs>
+    </svg>
+
+    <!-- BOOT OVERLAY -->
+    <div id="boot">
+        <div class="boot-logo">LECA</div>
+        <div class="boot-bar-wrap"><div class="boot-bar"></div></div>
+        <div class="boot-label">Loading Premium...</div>
+    </div>
+
+    <!-- BACKGROUNDS -->
+    <div class="aurora"><div class="blob b1"></div><div class="blob b2"></div><div class="blob b3"></div></div>
+    <div class="grid-bg"></div><div id="parts"></div>
+
+    <!-- ============================================================
+         TOP BAR SEJAJAR
+    ============================================================ -->
+    <div class="top-bar">
+        <div class="top-brand"><i class="fa-solid fa-cube"></i> LECA STORE</div>
+        <button class="menu-btn" onclick="openSideMenu()"><i class="fa-solid fa-ellipsis-vertical"></i></button>
+    </div>
+
+    <!-- SIDE MENU DRAWER -->
+    <div class="side-overlay" id="side-overlay" onclick="closeSideMenu()"></div>
+    <div class="side-menu" id="side-menu">
+        <div class="side-header">
+            <h3>Menu Tambahan</h3>
+            <button class="close-side" onclick="closeSideMenu()"><i class="fa-solid fa-xmark"></i></button>
+        </div>
+        
+        <div class="user-profile">
+            <div class="u-avatar"><i class="fa-solid fa-user-astronaut"></i></div>
+            <div class="u-info">
+                <h4>Guest User</h4>
+                <span class="u-badge"><i class="fa-solid fa-star"></i> VIP MEMBER</span>
+            </div>
+        </div>
+
+        <div class="menu-list">
+            <!-- FITUR BARU: MENU LIST BELI TITLE -->
+            <a href="#" class="menu-item title-gradient" onclick="openTitlePage(); closeSideMenu();">
+                <i class="fa-solid fa-tags"></i> <span class="title-gradient-text">List Beli Title</span>
+            </a>
+            
+            <a href="#" class="menu-item" onclick="showToast('Menu Dashboard belum tersedia'); closeSideMenu();"><i class="fa-solid fa-house-user"></i> Dashboard</a>
+            <a href="#" class="menu-item" onclick="showToast('Kamu belum memiliki transaksi.'); closeSideMenu();"><i class="fa-solid fa-clock-rotate-left"></i> Riwayat Transaksi</a>
+            <!-- FITUR TEMA CYBERPUNK -->
+            <a href="#" class="menu-item" id="theme-btn" onclick="toggleTheme()"><i class="fa-solid fa-moon"></i> Ganti Tema Gelap</a>
+            <!-- FITUR RATING BINTANG 5 -->
+            <a href="#" class="menu-item" onclick="openRatingModal(); closeSideMenu();"><i class="fa-solid fa-star-half-stroke"></i> Beri Rating Toko</a>
+            
+            <a href="https://discord.gg/pmwRx8tMY" class="menu-item" target="_blank"><i class="fa-brands fa-discord"></i> Komunitas VIP</a>
+        </div>
+    </div>
+
+    <!-- ============================================================
+         HALAMAN LIST BELI TITLE (Z-INDEX 15000)
+    ============================================================ -->
+    <div class="title-page" id="title-page">
+        <div class="title-topbar">
+            <button class="back-btn" onclick="closeTitlePage()"><i class="fa-solid fa-arrow-left"></i></button>
+            <h2>List Leca All Map</h2>
+        </div>
+        <div class="title-body">
+            <div class="title-header-card">
+                <h3>Custom Title Shop</h3>
+                <p>Tampil beda di dalam Map Leca dengan Title spesial warna RGB milikmu sendiri!</p>
+            </div>
+            
+            <ul class="price-list">
+                <li class="rarity-epic" data-id="5" data-name="Custom Title (rgb)" data-price="15000" onclick="selectProduct(this)">
+                    <div class="card-inner">
+                        <div class="rarity-stripe"></div>
+                        <div class="card-body">
+                            <div class="rbx-left">
+                                <div class="rbx-icon-wrap"><i class="fa-solid fa-palette title-icon"></i></div>
+                                <div class="rbx-info">
+                                    <span class="rbx-amt">Custom Title (rgb)</span>
+                                    <span class="rarity-badge">EPIC</span>
+                                </div>
+                            </div>
+                            <span class="item-price">Rp 15.000</span>
+                        </div>
+                    </div>
+                </li>
+                <li class="rarity-rare" data-id="6" data-name="Add rgb Title" data-price="5000" onclick="selectProduct(this)">
+                    <div class="card-inner">
+                        <div class="rarity-stripe"></div>
+                        <div class="card-body">
+                            <div class="rbx-left">
+                                <div class="rbx-icon-wrap"><i class="fa-solid fa-tag title-icon"></i></div>
+                                <div class="rbx-info">
+                                    <span class="rbx-amt">Add rgb Title</span>
+                                    <span class="rarity-badge">RARE</span>
+                                </div>
+                            </div>
+                            <span class="item-price">Rp 5.000</span>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- ============================================================
+         RATING MODAL POP-UP (FITUR BARU)
+    ============================================================ -->
+    <div class="rating-overlay" id="rating-overlay" onclick="closeRatingModal()"></div>
+    <div class="rating-modal" id="rating-modal">
+        <div class="rating-header">
+            <h3><i class="fa-solid fa-star"></i> Penilaian Toko</h3>
+            <button class="close-side" onclick="closeRatingModal()"><i class="fa-solid fa-xmark"></i></button>
+        </div>
+        <div class="rating-body">
+            <!-- TOTAL RATING INFO -->
+            <div class="rating-total">
+                <span class="score">4.9</span>
+                <div class="stars-display">
+                    <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star-half-stroke"></i>
+                </div>
+                <span class="count">Total: 1,284 Penilaian User</span>
+            </div>
+            
+            <!-- INPUT 5 BINTANG -->
+            <div class="rating-input">
+                <p>Berikan rating pengalamanmu:</p>
+                <div class="stars-select" id="star-select">
+                    <i class="fa-solid fa-star" data-val="1"></i>
+                    <i class="fa-solid fa-star" data-val="2"></i>
+                    <i class="fa-solid fa-star" data-val="3"></i>
+                    <i class="fa-solid fa-star" data-val="4"></i>
+                    <i class="fa-solid fa-star" data-val="5"></i>
+                </div>
+            </div>
+            
+            <!-- INPUT SARAN -->
+            <textarea id="rating-feedback" class="rating-textarea" placeholder="Tulis saran dan kritik kamu untuk LECA Store di sini..."></textarea>
+            
+            <button class="btn-submit-rating" onclick="submitRating()">Kirim Penilaian</button>
+        </div>
+    </div>
+
+    <!-- SLIDE NAV DOTS & CART FLOAT -->
+    <div class="slide-nav" id="slide-nav">
+        <div class="nav-dot active" onclick="scrollToSlide(0)" title="Home"></div>
+        <div class="nav-dot" onclick="scrollToSlide(1)" title="Store"></div>
+        <div class="nav-dot" onclick="scrollToSlide(2)" title="Map"></div>
+        <div class="nav-dot" onclick="scrollToSlide(3)" title="Contact"></div>
+    </div>
+
+    <div class="cart-float" onclick="openCart()">
+        <i class="fa-solid fa-cart-shopping"></i>
+        <div class="cart-badge" id="cart-badge">0</div>
+    </div>
+
+    <!-- MAIN SCROLLER -->
+    <div class="scroller" id="scroller">
+
+        <!-- SLIDE 1: HERO -->
+        <section class="slide">
+            <div class="s-content">
+                <div class="hero-badge ri fu"><i class="fa-solid fa-crown" style="color:var(--gold);"></i> Premium Community</div>
+                
+                <div class="hero-orbit-wrap ri fu">
+                    <div class="orbit-ring or1"></div><div class="orbit-ring or2"></div>
+                    <div class="leca-outer"><span class="leca-text">LECA</span></div>
+                </div>
+
+                <span class="community-tag ri fu">Official Store</span>
+                <div class="hero-line ri fu"></div>
+
+                <div class="ticker-wrap ri fu">
+                    <div class="ticker">
+                        <span class="ticker-item"><i class="fa-solid fa-gem"></i> Robux Resmi <span class="ticker-sep">◆</span></span>
+                        <span class="ticker-item"><i class="fa-solid fa-mountain"></i> Mount Lunexia <span class="ticker-sep">◆</span></span>
+                        <span class="ticker-item"><i class="fa-solid fa-trophy"></i> Speedrun Timer <span class="ticker-sep">◆</span></span>
+                        <span class="ticker-item"><i class="fa-solid fa-users"></i> Komunitas Nusantara <span class="ticker-sep">◆</span></span>
+                        <span class="ticker-item"><i class="fa-solid fa-gem"></i> Robux Resmi <span class="ticker-sep">◆</span></span>
+                        <span class="ticker-item"><i class="fa-solid fa-mountain"></i> Mount Lunexia <span class="ticker-sep">◆</span></span>
+                        <span class="ticker-item"><i class="fa-solid fa-trophy"></i> Speedrun Timer <span class="ticker-sep">◆</span></span>
+                        <span class="ticker-item"><i class="fa-solid fa-users"></i> Komunitas Nusantara <span class="ticker-sep">◆</span></span>
+                    </div>
+                </div>
+
+                <div class="glass-card hero-desc ri fu">
+                    <strong>LECA COMMUNITY</strong> adalah komunitas Roblox tempat berkumpulnya para gamer, kreator, dan developer Nusantara! Kami hadir untuk menciptakan pengalaman bermain yang <em>epik</em>, berbagi keseruan, dan menaklukkan tantangan bersama.
+                </div>
+            </div>
+            <div class="scroll-hint">
+                <div class="chev-group"><i class="fa-solid fa-chevron-down"></i><i class="fa-solid fa-chevron-down"></i><i class="fa-solid fa-chevron-down"></i></div>
+                <span>Scroll</span>
+            </div>
+        </section>
+
+        <!-- SLIDE 2: MARKETPLACE -->
+        <section class="slide">
+            <div class="s-content">
+                <div class="market-header ri fu">
+                    <div class="market-header-inner">
+                        <div class="mkt-icon"><i class="fa-solid fa-store"></i></div>
+                        <div class="mkt-text">
+                            <h3>LECA STORE</h3>
+                            <p>Robux resmi, harga terbaik & terpercaya</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="sec-label ri fu"><i class="fa-solid fa-users"></i> Robux Via Komunitas</div>
+
+                <ul class="price-list" id="product-list">
+                    <li class="rarity-common ri sl" data-id="1" data-name="100 Robux" data-price="11000" onclick="selectProduct(this)">
+                        <div class="card-inner">
+                            <div class="rarity-stripe"></div>
+                            <div class="card-body">
+                                <div class="rbx-left">
+                                    <div class="rbx-icon-wrap"><svg class="neon-gem-icon" viewBox="0 0 100 100"><use href="#neon-gem"></use></svg></div>
+                                    <div class="rbx-info"><span class="rbx-amt">100 Robux</span><span class="rarity-badge">COMMON</span></div>
+                                </div>
+                                <span class="item-price">Rp 11.000</span>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="rarity-rare ri sr" data-id="2" data-name="500 Robux" data-price="55000" onclick="selectProduct(this)">
+                        <div class="card-inner">
+                            <div class="rarity-stripe"></div>
+                            <div class="card-body">
+                                <div class="rbx-left">
+                                    <div class="rbx-icon-wrap"><svg class="neon-gem-icon" viewBox="0 0 100 100"><use href="#neon-gem"></use></svg></div>
+                                    <div class="rbx-info"><span class="rbx-amt">500 Robux</span><span class="rarity-badge">RARE</span></div>
+                                </div>
+                                <span class="item-price">Rp 55.000</span>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="rarity-epic ri sl" data-id="3" data-name="1000 Robux" data-price="110000" onclick="selectProduct(this)">
+                        <div class="badge-hot">🔥 Populer</div>
+                        <div class="card-inner">
+                            <div class="rarity-stripe"></div>
+                            <div class="card-body">
+                                <div class="rbx-left">
+                                    <div class="rbx-icon-wrap"><svg class="neon-gem-icon" viewBox="0 0 100 100"><use href="#neon-gem"></use></svg></div>
+                                    <div class="rbx-info"><span class="rbx-amt">1000 Robux</span><span class="rarity-badge">EPIC</span></div>
+                                </div>
+                                <span class="item-price">Rp 110.000</span>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+
+                <div class="note-card ri fu">
+                    <div class="note-row"><i class="fa-solid fa-circle-exclamation ni red"></i><span><strong>Syarat:</strong> Wajib join grup komunitas selama 14 hari.</span></div>
+                    <div class="note-div"></div>
+                    <div class="note-row"><i class="fa-solid fa-bolt ni green"></i><span><strong>Instan!</strong> Setelah join, Robux bisa di-order & masuk <em>instan</em> tanpa nunggu.</span></div>
+                </div>
+
+                <a href="https://www.roblox.com/share/g/1023419519" class="btn btn-roblox ri fu" target="_blank"><i class="fa-solid fa-cube"></i> JOIN KOMUNITAS LECA</a>
+
+                <div class="sec-label ri fu" style="margin-top:20px;"><i class="fa-solid fa-ticket"></i> Robux Via Gamepass</div>
+
+                <ul class="price-list">
+                    <li class="rarity-legendary ri sr" data-id="4" data-name="1000 Robux (Gamepass)" data-price="108000" onclick="selectProduct(this)">
+                        <div class="card-inner">
+                            <div class="rarity-stripe"></div>
+                            <div class="card-body">
+                                <div class="rbx-left">
+                                    <div class="rbx-icon-wrap"><svg class="neon-gem-icon" viewBox="0 0 100 100"><use href="#neon-gem"></use></svg></div>
+                                    <div class="rbx-info"><span class="rbx-amt">1000 Robux</span><span class="rarity-badge">LEGENDARY</span></div>
+                                </div>
+                                <span class="item-price">Rp 108.000</span>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- SLIDE 3: MAP (INFO MAP LENGKAP UTUH) -->
+        <section class="slide">
+            <div class="s-content">
+                <div class="sec-label ri fu"><i class="fa-solid fa-map-location-dot"></i> Official Roblox Map</div>
+                <div class="map-card ri fu">
+                    <svg class="map-mountain" viewBox="0 0 460 180" preserveAspectRatio="none" fill="none">
+                        <path d="M0 180 L80 120 L120 140 L180 60 L220 90 L260 30 L300 70 L340 50 L380 90 L420 70 L460 100 L460 180 Z" fill="rgba(168,85,247,0.3)"/>
+                        <path d="M0 180 L60 150 L100 165 L150 110 L190 135 L240 80 L270 100 L310 70 L350 95 L390 75 L430 110 L460 95 L460 180 Z" fill="rgba(236,72,153,0.3)"/>
+                    </svg>
+
+                    <div class="map-tag"><i class="fa-solid fa-mountain"></i> Official Map</div>
+                    <div class="lunexia-title">MOUNT LUNEXIA</div>
+                    <p class="map-desc">Jelajahi petualangan epik di Mount Lunexia, map resmi karya LECA Community! Nikmati rute rintangan seru melintasi medan pegunungan yang natural dan organik. Bersainglah bersama teman dengan sistem speedrun timer presisi untuk memperebutkan posisi puncak Leaderboard!</p>
+                    <div class="map-stats">
+                        <div class="map-stat"><i class="fa-solid fa-mountain"></i><span class="map-stat-v">Rintangan</span><span class="map-stat-l">Mode</span></div>
+                        <div class="map-stat"><i class="fa-solid fa-stopwatch"></i><span class="map-stat-v">Speedrun</span><span class="map-stat-l">Timer</span></div>
+                        <div class="map-stat"><i class="fa-solid fa-trophy"></i><span class="map-stat-v">Leaderboard</span><span class="map-stat-l">Sistem</span></div>
+                    </div>
+                    <a href="https://www.roblox.com/share?code=d8d661caa1193a42bd6bcb507b858e7f&type=ExperienceDetails&stamp=1778802714526" class="btn btn-play" target="_blank"><i class="fa-solid fa-play"></i> MAINKAN SEKARANG</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- SLIDE 4: CONTACT (LENGKAP UTUH) -->
+        <section class="slide">
+            <div class="s-content">
+                <div class="sec-label ri fu"><i class="fa-solid fa-headset"></i> Kontak & Bantuan</div>
+
+                <div class="contact-intro ri fu">
+                    <div class="contact-intro-title"><i class="fa-solid fa-comment-dots"></i> Tertarik membeli atau berkolaborasi?</div>
+                    <p class="contact-intro-sub">Pilih jalur kontak prioritas di bawah untuk proses yang cepat dan mudah.</p>
+                </div>
+
+                <div class="contact-tile ri sl">
+                    <a href="https://wa.me/6283831077830" class="contact-tile-inner" target="_blank">
+                        <div class="c-icon c-wa"><i class="fa-brands fa-whatsapp"></i></div>
+                        <div class="tile-text"><div class="tile-name">WhatsApp</div><div class="tile-sub">Biasanya dibalas dalam hitungan menit</div></div>
+                        <i class="fa-solid fa-chevron-right tile-arr"></i>
+                    </a>
+                </div>
+
+                <div class="contact-tile ri sr">
+                    <a href="https://discord.gg/pmwRx8tMY" class="contact-tile-inner" target="_blank">
+                        <div class="c-icon c-dc"><i class="fa-brands fa-discord"></i></div>
+                        <div class="tile-text"><div class="tile-name">Discord Server</div><div class="tile-sub">Join & buat tiket pembelian</div></div>
+                        <i class="fa-solid fa-chevron-right tile-arr"></i>
+                    </a>
+                </div>
+
+                <div class="dc-id-box ri fu">
+                    <i class="fa-brands fa-discord"></i>
+                    <div><div class="dc-id-l">Discord Manual Add</div><div class="dc-id-v">myfavnasgor</div></div>
+                </div>
+            </div>
+        </section>
+
+    </div><!-- end scroller -->
+
+    <!-- ACTION BAR -->
+    <div class="action-bar" id="action-bar">
+        <div class="action-product-row">
+            <svg class="neon-gem-md" viewBox="0 0 100 100"><use href="#neon-gem"></use></svg>
+            <span class="prod-name" id="action-name">-</span>
+            <span class="prod-price" id="action-price">-</span>
+        </div>
+        <div class="action-btns">
+            <button class="btn-add-cart" onclick="addToCart()"><i class="fa-solid fa-cart-plus"></i> + Keranjang</button>
+            <button class="btn-buy-now" onclick="buyNow()"><i class="fa-solid fa-bolt"></i> Beli Sekarang</button>
+        </div>
+    </div>
+
+    <!-- CART DRAWER -->
+    <div class="cart-overlay" id="cart-overlay" onclick="closeCart()"></div>
+    <div class="cart-drawer" id="cart-drawer">
+        <div class="cart-header">
+            <h3><i class="fa-solid fa-cart-shopping"></i> Keranjang Belanja</h3>
+            <button class="cart-close" onclick="closeCart()"><i class="fa-solid fa-xmark"></i></button>
+        </div>
+        <div class="cart-items" id="cart-items">
+            <div class="cart-empty" id="cart-empty"><i class="fa-solid fa-cart-shopping"></i><p>Keranjangmu masih kosong!<br><span style="font-size:0.85rem;color:var(--text-m);font-weight:900;">Pilih produk di atas.</span></p></div>
+        </div>
+        <div class="cart-footer">
+            <div class="cart-summary"><span class="cart-summary-label">Total Pembayaran</span><span class="cart-summary-total" id="cart-total">Rp 0</span></div>
+            <button class="btn-checkout" id="checkout-btn" onclick="goToCheckout()" disabled><i class="fa-solid fa-bag-shopping"></i> Checkout (<span id="checkout-count">0</span> item)</button>
+        </div>
+    </div>
+
+    <!-- CONTACT / ORDER PAGE -->
+    <div class="contact-page" id="contact-page">
+        <div class="contact-topbar">
+            <button class="back-btn" onclick="closeContactPage()"><i class="fa-solid fa-arrow-left"></i></button>
+            <h2>Konfirmasi Pembelian</h2>
+        </div>
+        <div class="contact-body">
+            <p class="sec-sm">Ringkasan Pesanan</p>
+            <div class="order-card">
+                <h4><i class="fa-solid fa-receipt" style="margin-right:6px;"></i> Detail Item</h4>
+                <div id="order-items-list"></div>
+                <div class="order-total-row"><span class="order-total-label">Total Bayar</span><span class="order-total-price" id="order-total-price">Rp 0</span></div>
+            </div>
+
+            <div class="info-banner"><i class="fa-solid fa-circle-info"></i><p>Hubungi kami via WhatsApp atau Discord. <strong>Sertakan nama akun Roblox</strong> dan produk yang dipilih. Tim kami akan memandu proses selanjutnya! ✨</p></div>
+
+            <p class="sec-sm">Pilih Jalur Pembelian</p>
+
+            <div class="contact-tile">
+                <a class="contact-tile-inner" href="https://wa.me/6283831077830" target="_blank">
+                    <div class="c-icon c-wa"><i class="fa-brands fa-whatsapp"></i></div>
+                    <div class="tile-text"><div class="tile-name">WhatsApp</div><div class="tile-sub">Biasanya dibalas dalam hitungan menit</div></div>
+                    <i class="fa-solid fa-chevron-right tile-arr"></i>
+                </a>
+            </div>
+
+            <div class="contact-tile">
+                <a class="contact-tile-inner" href="https://discord.gg/pmwRx8tMY" target="_blank">
+                    <div class="c-icon c-dc"><i class="fa-brands fa-discord"></i></div>
+                    <div class="tile-text"><div class="tile-name">Discord Server</div><div class="tile-sub">Join & ikuti langkah di bawah</div></div>
+                    <i class="fa-solid fa-chevron-right tile-arr"></i>
+                </a>
+                
+                <div class="discord-steps">
+                    <div class="ds-lbl">Setelah join server, pilih salah satu cara:</div>
+                    <div class="ds-list">
+                        <div class="ds-step"><div class="step-num">1</div><div class="step-info"><span class="step-title"><i class="fa-solid fa-envelope"></i> DM Kuromie</span><span class="step-desc">Kirim pesan langsung ke <strong>Kuromie</strong> untuk order</span></div></div>
+                        <div class="ds-step"><div class="step-num">2</div><div class="step-info"><span class="step-title"><i class="fa-solid fa-ticket"></i> Buat Tiket</span><span class="step-desc">Buka tiket pembelian di channel tiket server</span></div></div>
+                        <div class="ds-step"><div class="step-num">3</div><div class="step-info"><span class="step-title"><i class="fa-solid fa-comments"></i> #yapping-area</span><span class="step-desc">Chat di <strong>#yapping-area</strong> dan tim kami siap membantu!</span></div></div>
+                    </div>
+                </div>
+            </div>
+            
+            <p class="sec-sm" style="margin-top:16px;">Discord Manual</p>
+            <div class="dc-id-box"><i class="fa-brands fa-discord"></i><div><div class="dc-id-l">Add username Discord:</div><div class="dc-id-v">myfavnasgor</div></div></div>
+        </div>
+    </div>
+
+    <!-- TOAST -->
+    <div class="toast" id="toast"></div>
+
+    <script>
+        // BOOT
+        setTimeout(() => { document.getElementById('boot').classList.add('done'); }, 2000);
+
+        // PARTICLES
+        const pWrap = document.getElementById('parts');
+        const pIcons = ['fa-star','fa-sparkles','fa-wand-magic-sparkles'];
+        for (let i = 0; i < 20; i++) {
+            const p = document.createElement('i');
+            p.classList.add('fa-solid', pIcons[Math.floor(Math.random() * pIcons.length)], 'pt');
+            p.style.left = Math.random() * 100 + 'vw';
+            p.style.color = Math.random() > 0.5 ? '#d946ef' : '#06b6d4';
+            p.style.fontSize = (0.5 + Math.random() * 0.7) + 'rem';
+            p.style.animationDuration = (10 + Math.random() * 15) + 's';
+            p.style.animationDelay = (Math.random() * 10) + 's';
+            pWrap.appendChild(p);
+        }
+
+        // SLIDE NAV
+        const scroller = document.getElementById('scroller');
+        const slides = scroller.querySelectorAll('.slide');
+        const navDots = document.querySelectorAll('.nav-dot');
+        function scrollToSlide(idx) { slides[idx].scrollIntoView({ behavior: 'smooth' }); closeSideMenu(); }
+        const slideObserver = new IntersectionObserver((entries) => {
+            entries.forEach(e => {
+                if (e.isIntersecting) {
+                    const idx = [...slides].indexOf(e.target);
+                    navDots.forEach((d, i) => d.classList.toggle('active', i === idx));
+                }
+            });
+        }, { root: scroller, threshold: 0.5 });
+        slides.forEach(s => slideObserver.observe(s));
+
+        // REVEAL
+        const revealObs = new IntersectionObserver((entries) => {
+            let d = 0;
+            entries.forEach(e => {
+                if (e.isIntersecting) { setTimeout(() => e.target.classList.add('vis'), d * 90); d++; revealObs.unobserve(e.target); }
+            });
+        }, { root: scroller, threshold: 0.08 });
+        document.querySelectorAll('.ri').forEach(el => revealObs.observe(el));
+
+        // SIDE MENU LOGIC
+        function openSideMenu() { document.getElementById('side-overlay').classList.add('open'); document.getElementById('side-menu').classList.add('open'); }
+        function closeSideMenu() { document.getElementById('side-overlay').classList.remove('open'); document.getElementById('side-menu').classList.remove('open'); }
+
+        // FITUR TITLE PAGE (BARU)
+        function openTitlePage() { document.getElementById('title-page').classList.add('open'); }
+        function closeTitlePage() { document.getElementById('title-page').classList.remove('open'); }
+
+        // FITUR DARK MODE CYBERPUNK
+        function toggleTheme() {
+            document.body.classList.toggle('dark-mode');
+            const themeBtn = document.getElementById('theme-btn');
+            if(document.body.classList.contains('dark-mode')) {
+                themeBtn.innerHTML = '<i class="fa-solid fa-sun"></i> Kembali Mode Terang';
+                showToast('🌙 Mode Cyberpunk Diaktifkan!');
+            } else {
+                themeBtn.innerHTML = '<i class="fa-solid fa-moon"></i> Ganti Tema Gelap';
+                showToast('☀️ Mode Terang Diaktifkan!');
+            }
+            closeSideMenu();
+        }
+
+        // FITUR RATING MODAL
+        let currentRating = 0;
+        const stars = document.querySelectorAll('.stars-select i');
+        stars.forEach(star => {
+            star.addEventListener('mouseover', function() { const val = this.dataset.val; stars.forEach(s => { s.classList.toggle('hover', s.dataset.val <= val); }); });
+            star.addEventListener('mouseout', function() { stars.forEach(s => s.classList.remove('hover')); });
+            star.addEventListener('click', function() { currentRating = this.dataset.val; stars.forEach(s => { s.classList.toggle('active', s.dataset.val <= currentRating); }); });
+        });
+
+        function openRatingModal() { document.getElementById('rating-overlay').classList.add('open'); document.getElementById('rating-modal').classList.add('open'); }
+        function closeRatingModal() { document.getElementById('rating-overlay').classList.remove('open'); document.getElementById('rating-modal').classList.remove('open'); }
+        function submitRating() {
+            if(currentRating === 0) { showToast('⚠️ Silakan pilih bintang dulu!'); return; }
+            showToast('💖 Terima kasih atas rating ' + currentRating + ' Bintang-nya!');
+            setTimeout(() => {
+                closeRatingModal(); currentRating = 0;
+                stars.forEach(s => s.classList.remove('active'));
+                document.getElementById('rating-feedback').value = '';
+            }, 800);
+        }
+
+        // CART LOGIC
+        let cart = [];
+        let selectedItem = null;
+        function formatRp(n) { return 'Rp ' + n.toLocaleString('id-ID'); }
+
+        function selectProduct(el) {
+            document.querySelectorAll('.price-list li').forEach(li => li.classList.remove('selected'));
+            el.classList.add('selected'); // Ini otomatis ngasih efek Neon Pulse Outline
+            const id = el.dataset.id, name = el.dataset.name, price = parseInt(el.dataset.price);
+            selectedItem = { id, name, price };
+            document.getElementById('action-name').textContent = name;
+            document.getElementById('action-price').textContent = formatRp(price);
+            document.getElementById('action-bar').classList.add('show');
+        }
+
+        function addToCart() {
+            if (!selectedItem) return;
+            const ex = cart.find(c => c.id === selectedItem.id);
+            if (ex) { ex.qty++; } else { cart.push({ ...selectedItem, qty: 1 }); }
+            updateCartUI(); showToast('✅ ' + selectedItem.name + ' ditambahkan ke keranjang!');
+            document.querySelectorAll('.price-list li').forEach(li => li.classList.remove('selected'));
+            document.getElementById('action-bar').classList.remove('show'); selectedItem = null;
+        }
+
+        function buyNow() {
+            if (!selectedItem) return;
+            const ex = cart.find(c => c.id === selectedItem.id);
+            if (!ex) cart.push({ ...selectedItem, qty: 1 });
+            updateCartUI(); const item = { ...selectedItem };
+            document.querySelectorAll('.price-list li').forEach(li => li.classList.remove('selected'));
+            document.getElementById('action-bar').classList.remove('show'); selectedItem = null;
+            openContactPage([{ ...item, qty: 1 }]);
+        }
+
+        function updateCartUI() {
+            const total = cart.reduce((s, c) => s + c.qty, 0); const badge = document.getElementById('cart-badge');
+            badge.textContent = total; badge.style.display = total > 0 ? 'flex' : 'none';
+            renderCartItems(); updateCartFooter();
+        }
+
+        function renderCartItems() {
+            const el = document.getElementById('cart-items'); const empty = document.getElementById('cart-empty');
+            el.querySelectorAll('.cart-item').forEach(i => i.remove());
+            if (cart.length === 0) { empty.style.display = 'block'; return; }
+            empty.style.display = 'none';
+            cart.forEach(item => {
+                const div = document.createElement('div'); div.className = 'cart-item'; div.dataset.id = item.id;
+                div.innerHTML = `<div class="cart-item-check checked" onclick="toggleCheck(this)"></div><svg class="neon-gem-md" viewBox="0 0 100 100"><use href="#neon-gem"></use></svg><div class="cart-item-info"><div class="cart-item-name">${item.name}</div><div class="cart-item-price">${formatRp(item.price * item.qty)}</div></div><div class="cart-item-qty"><button class="qty-btn" onclick="changeQty('${item.id}',-1)">−</button><span class="qty-num">${item.qty}</span><button class="qty-btn" onclick="changeQty('${item.id}',1)">+</button></div>`;
+                el.appendChild(div);
+            });
+        }
+
+        function toggleCheck(el) { el.classList.toggle('checked'); updateCartFooter(); }
+        function changeQty(id, delta) { const item = cart.find(c => c.id === id); if (!item) return; item.qty += delta; if (item.qty <= 0) cart = cart.filter(c => c.id !== id); updateCartUI(); }
+        function updateCartFooter() {
+            const checkedIds = [...document.querySelectorAll('.cart-item-check.checked')].map(el => el.closest('.cart-item')?.dataset?.id);
+            const checked = cart.filter(c => checkedIds.includes(c.id));
+            const total = checked.reduce((s, c) => s + c.price * c.qty, 0); const count = checked.reduce((s, c) => s + c.qty, 0);
+            document.getElementById('cart-total').textContent = formatRp(total); document.getElementById('checkout-count').textContent = count;
+            document.getElementById('checkout-btn').disabled = count === 0;
+        }
+
+        function openCart() { document.getElementById('cart-overlay').classList.add('open'); document.getElementById('cart-drawer').classList.add('open'); }
+        function closeCart() { document.getElementById('cart-overlay').classList.remove('open'); document.getElementById('cart-drawer').classList.remove('open'); }
+        function goToCheckout() {
+            const checkedIds = [...document.querySelectorAll('.cart-item-check.checked')].map(el => el.closest('.cart-item')?.dataset?.id);
+            const items = cart.filter(c => checkedIds.includes(c.id)); if (!items.length) return; closeCart(); openContactPage(items);
+        }
+
+        function openContactPage(items) {
+            const listEl = document.getElementById('order-items-list'); listEl.innerHTML = ''; let total = 0;
+            items.forEach(item => {
+                const sub = item.price * item.qty; total += sub; const row = document.createElement('div'); row.className = 'order-item-row';
+                row.innerHTML = `<div class="order-item-left"><svg class="neon-gem-sm" viewBox="0 0 100 100"><use href="#neon-gem"></use></svg><span class="order-item-name">${item.name}</span><span class="order-qty-badge">x${item.qty}</span></div><span class="order-item-price">${formatRp(sub)}</span>`;
+                listEl.appendChild(row);
+            });
+            document.getElementById('order-total-price').textContent = formatRp(total); document.getElementById('contact-page').classList.add('open');
+        }
+        function closeContactPage() { document.getElementById('contact-page').classList.remove('open'); }
+
+        let toastTimer;
+        function showToast(msg) { const t = document.getElementById('toast'); t.textContent = msg; t.classList.add('show'); clearTimeout(toastTimer); toastTimer = setTimeout(() => t.classList.remove('show'), 2800); }
+
+        scroller.addEventListener('scroll', () => {
+            if (selectedItem) { document.getElementById('action-bar').classList.remove('show'); document.querySelectorAll('.price-list li').forEach(li => li.classList.remove('selected')); selectedItem = null; }
+        });
+    </script>
+</body>
+</html>
